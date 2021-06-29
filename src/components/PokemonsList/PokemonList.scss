@@ -1,0 +1,36 @@
+.pokemon-list {
+
+  width: 60%;
+
+  &__cards {
+    border: 1px solid red;
+  }
+
+  &__item {
+    display: inline-block;
+    list-style-type: none;
+    border: 1px solid red;
+    margin-bottom: 10px;
+  }
+
+  &__card {
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+
+    &:hover {
+      border: purple solid 1px;
+      background-color: yellow;
+    }
+  }
+
+  &__button {
+    background-color: rgb(0, 140, 255);
+    color: white;
+    outline: none;
+    border-radius: 24px;
+    width: 100%;
+  }
+
+  
+}

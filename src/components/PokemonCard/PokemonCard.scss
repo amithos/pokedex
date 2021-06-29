@@ -1,0 +1,65 @@
+$typesColors:
+  'normal' rgb(77,77,77) rgb(125,120,120),
+  'flying' rgb(3,160,255) rgb(97,195,255),
+  'fighting' rgb(255,136,0) rgb(255,174,81),
+  'poison' rgb(197,3,255) rgb(221,106,255),
+  'ground' rgb(47,5,5) rgb(96,21,21),
+  'rock' rgb(119,119,119) rgb(159,159,159),
+  'bug' rgb(36,204,1) rgb(108,208,87),
+  'ghost' rgb(144,117,153) rgb(245,213,255),
+  'steel' rgb(74,93,103) rgb(95,117,131),
+  'fire' rgb(255,0,0) rgb(255,92,92),
+  'water' rgb(8,0,255) rgb(99,94,255),
+  'grass' rgb(1,136,2) rgb(68,170,68),
+  'electric' rgb(255,221,0) rgb(255, 239, 133),
+  'psychic' rgb(10,19,87) rgb(36,45,116),
+  'ice' rgb(0,219,221) rgb(137,252,255),
+  'dragon' rgb(131,0,0) rgb(179,64,64),
+  'dark' rgb(0,0,0) rgb(54,52,52),
+  'fairy' rgb(255,80,180) rgb(255,134,203),
+  'unknown' rgb(61,34,34) rgb(158,95,95),
+  'shadow' rgb(64,1,88) rgb(47,20,57);
+
+$cardWidth: 300px;
+$cardVerticalMargin: 10px;
+$cardContentWidth: $cardWidth - ($cardVerticalMargin * 2);
+
+.pokemon-card {
+
+  width: 300px;
+  border: 5px solid rebeccapurple;
+
+  &__content {
+    width: $cardContentWidth;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__image {
+    width: 90%;
+  }
+
+  &__types {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48%;
+    color: white;
+    border-radius: 24px;
+    height: 30px;
+    
+    @each $type, $mainColor, $lightColor in $typesColors {
+      &--#{$type} {
+        background: linear-gradient(0deg, $mainColor 35%, $lightColor 85%);
+      }
+    }
+  }
+
+}
