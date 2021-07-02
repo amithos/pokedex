@@ -1,15 +1,17 @@
 import React, { ReactElement, useState, useEffect, useRef} from 'react';
 
-import {iSelectedPokemon, iStat, iType, TableStatType} from '../../types/types';
-import { SelectedCardType } from '../../types/SelectedCardType';
+import { iStat, iType, TableStatType } from '../../types/types';
 import { PokemonType } from '../../types/PokemonType';
-import { SavedStatType } from '../../types/SelectedCardType';
 
 import { getPokemonById } from '../../api/pokemon';
 
 import './SelectedPokemon.scss';
 import { withACapital } from '../../_auxiliary';
 import { Loader } from '../Loader';
+
+interface iSelectedPokemon {
+  selectedPokemonId: number,
+}
 
 function usePrevious(value: any) {
   const ref = useRef();
@@ -34,7 +36,7 @@ const getId = (id: number): string => {
   return `#${stringId}`
 }
 
-const orderedKey = [
+const orderedKey: Array<string> = [
   'type', 'attack', 'defense', 'hp', 'special-attack',
   'special-defense', 'speed', 'weight', 'total moves'
 ];
@@ -43,24 +45,23 @@ export const SelectedPokemon: React.FC<iSelectedPokemon> = ({
   selectedPokemonId
 }): ReactElement => {
 
-  const [selectedPokemon, setSetlectedPokemon] = 
-    useState<any>({});
+  const [selectedPokemon, setSetlectedPokemon] = useState<any>({});
   const [isLoading, setLoading] = useState<any>(false);
   const [isLoaded, setLoaded] = useState<any>(false);
 
   const prevSelectedPokemonId = usePrevious(selectedPokemonId);
 
-  const startLoading = () => {
+  const startLoading = (): void => {
     setLoading(true);
     setLoaded(false);
   }
 
-  const endLoading = () => {
+  const endLoading = (): void  => {
     setLoading(false);
     setLoaded(true);
   }
 
-  const loadPokemon = () => {
+  const loadPokemon = (): void => {
 
     if (prevSelectedPokemonId === selectedPokemonId 
       || selectedPokemonId === 0) {
@@ -82,20 +83,21 @@ export const SelectedPokemon: React.FC<iSelectedPokemon> = ({
           moves,
         } = pokemon;
 
-        const tableData: any = {
+        const tableData: TableStatType = {
           type: types.find((type: iType) => type.slot === 1)?.type.name,
           'total moves': moves.length,
           weight,
+          attack: 0,
+          defense: 0,
+          'special-attack': 0,
+          'special-defense': 0,
+          speed: 0,
+          hp: 0,
         }
-        
-        stats.forEach((oldStat: iStat) => {
+  
+        stats.forEach((oldStat: iStat):void  => {
           tableData[oldStat.stat.name] = oldStat.base_stat;
-
-          console.log(
-           withACapital(tableData[oldStat.stat.name])
-           );
         });
-
         
         const newPokemon = {
           imageSource: sprites.other['official-artwork'].front_default,
@@ -145,9 +147,7 @@ export const SelectedPokemon: React.FC<iSelectedPokemon> = ({
               </caption>
 
               <tbody>
-                {orderedKey.map((dataKey: string) => {            
-
-                  return (
+                {orderedKey.map((dataKey: string) => (
                   <tr
                     key={dataKey}
                     className="selected-pokemon__row"
@@ -159,7 +159,7 @@ export const SelectedPokemon: React.FC<iSelectedPokemon> = ({
                       {withACapital(tableData[dataKey])}
                     </td>
                   </tr>
-                )}
+                )
                 )}
               </tbody>
             </table>

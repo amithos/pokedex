@@ -43,6 +43,7 @@ $cellHeight: $fontSize * 1.8;
     left: 0;
     right: 0;
     margin: auto;
+    background-color: $colorYellow;
 
     display: flex;
     flex-direction: column;
@@ -69,6 +70,7 @@ $cellHeight: $fontSize * 1.8;
     border-spacing: 0;
     width: 100%;
     font-size: 1rem;
+    color: $colorNavy;
   }
 
   &__row {

@@ -1,6 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react';
 
-import { iPokemonList } from '../../types/types';
 import { PokemonType } from '../../types/PokemonType';
 import { PokemonCardType } from '../../types/PokemonCardType';
 
@@ -11,11 +10,13 @@ import { Loader } from '../Loader';
 
 import './PokemonList.scss';
 
-
+interface iPokemonList {
+  onSelectPokemon: (id: number) => void,
+  onSelectedPokemonId: number,
+};
 
 export const PokemonList: React.FC<iPokemonList> = ({
   onSelectPokemon,
-  onFilter,
   onSelectedPokemonId,
 
 }): ReactElement => {
@@ -23,11 +24,11 @@ export const PokemonList: React.FC<iPokemonList> = ({
   const [pokemons, setPokemons] = useState<PokemonCardType[]>([]);
   const [isLoading, setLoading] = useState<Boolean>(false);
 
-  const startLoading = () => {
+  const startLoading = ():void => {
     setLoading(true);
   }
 
-  const endLoading = () => {
+  const endLoading = ():void => {
     setLoading(false);
   }
   
@@ -38,7 +39,7 @@ export const PokemonList: React.FC<iPokemonList> = ({
     const limit = 12;
     let offset = pokemons.length + 1;
     
-    const requests = [];
+    const requests: Promise<any>[] = [];
 
     for (let i = 0; i < limit; i++) {
       requests.push(getPokemonById(offset));
@@ -65,12 +66,6 @@ export const PokemonList: React.FC<iPokemonList> = ({
       .then(endLoading);
   }
            
-  let visiblePokemons = [...pokemons];
-
-  // if (onFilter) {
-  //   visiblePokemons = visiblePokemons.filter(onFilter);
-  // }
-
   useEffect(loadPokemons, []);
   
   return (
@@ -78,7 +73,7 @@ export const PokemonList: React.FC<iPokemonList> = ({
       <div className="pokemon-list__content">
         
         <ul className="pokemon-list__cards">
-          {visiblePokemons.map((pokemon: PokemonCardType) => (
+          {pokemons.map((pokemon: PokemonCardType) => (
             <li className="pokemon-list__item" key={pokemon.id}>
               <PokemonCard
                 pokemon={pokemon}
@@ -100,8 +95,7 @@ export const PokemonList: React.FC<iPokemonList> = ({
               Load More
             </p>  
           )}  
-        </button>
-          
+        </button>         
       </div>
     </section>
   );
