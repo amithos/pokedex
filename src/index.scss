@@ -1,0 +1,25 @@
+@import './vars';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+p,
+ul,
+li,
+td {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+}
+
+#root { 
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  background: $colorPage;
+}

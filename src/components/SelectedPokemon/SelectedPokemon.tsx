@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect, useRef} from 'react';
 
-import { iStat, iType, TableStatType } from '../../types/types';
+import { iStat, iType } from '../../types/types';
 import { PokemonType } from '../../types/PokemonType';
 
 import { getPokemonById } from '../../api/pokemon';
@@ -83,7 +83,7 @@ export const SelectedPokemon: React.FC<iSelectedPokemon> = ({
           moves,
         } = pokemon;
 
-        const tableData: TableStatType = {
+        const tableData: any = {
           type: types.find((type: iType) => type.slot === 1)?.type.name,
           'total moves': moves.length,
           weight,

@@ -3,18 +3,15 @@ export type iNameUrl = {
   url: string,
 }
 
-export interface iType {
+export type iType = {
   slot: number,
   type: iNameUrl,
 }
 
-export interface iStat {
+export type iStat = {
   base_stat: number,
   effort: number,
-  stat: {
-    name: keyof TableStatType,
-    url: string,
-  },
+  stat: iNameUrl,
 }
 
 export type TableStatType = {

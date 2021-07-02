@@ -1,0 +1,37 @@
+@import './vars';
+
+.app {
+  max-width: 1600px;
+
+  &__header {
+    display: flex;
+    justify-content: center;
+  }
+    
+  &__header-content {
+    width: 50%;
+    border: $colorBlue double 5px;
+    min-width: 200px;
+    margin: 10px;
+    background: $colorHeader;
+  }
+  
+  &__title {
+    position: relative;
+    top: -10px;
+    font-weight: bold;
+    color: $colorYellow;
+    -webkit-text-stroke-width: 2.2px;
+    -webkit-text-stroke-color: $colorBlue;
+    text-align: center;
+    font-family: "Pokemon Solid";
+    font-size: 3rem;
+    line-height: 20px;
+  }
+  
+  &__content {
+    position: relative;
+    display: grid;
+    grid-template-columns: 60% 40%;
+  }
+}

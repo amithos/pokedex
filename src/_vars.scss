@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'Pokemon Solid';
+  src: url('./fonts/Pokemon\ Solid.ttf') format("woff");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Pokemon Hollow';
+  src: url('./fonts/Pokemon\ Hollow.ttf') format("woff");
+  font-weight: normal;
+}
+
+@keyframes loadindAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin load($size) {
+  border-radius: 50%;
+  width: $size;
+  height: $size;
+  border: 0.3em solid $colorPokedexSecond;
+  border-left-color: $colorPokedex;
+  animation: loadindAnimation 1.2s infinite linear;
+}
+
+$cardWidth: 300px;
+$cardContentMargin: 20px;
+$halfOfMargin: $cardContentMargin / 2;
+
+$colorPokedex: #ff1f0f;
+$colorPokedexSecond: rgba(255,5,16,0.35);
+$colorYellow: #ffcb05;
+$colorBlue: #3D7DCA;
+$colorNavy: #003A70;
+
+$colorPage: radial-gradient(circle, rgba(255,5,16, 0.85) 0%,
+  rgb(255,203,5) 50%, rgb(255,31,15) 100%);
+$colorHeader: linear-gradient(90deg, rgba(255,64,0,1) 4%,
+  rgba(255,203,5,1) 15%, rgba(255,193,5,1) 25%, rgba(255,5,16,1) 50%,
+  rgba(255,227,5,1) 75%, rgba(255,203,5,1) 85%, rgba(255,64,0,1) 96%);
+
+$transitionDuration: 0.3s;
+
