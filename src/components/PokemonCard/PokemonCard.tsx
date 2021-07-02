@@ -1,18 +1,33 @@
 import { ReactElement } from "react"
+import classNames from 'classnames';
 
-import { PokemonCardType } from "../../types/PokemonCardType" 
-import { iTypes } from "../../types/types"
+import { iPokemonCard } from "../../types/PokemonCardType" 
+import { iType } from "../../types/types"
+
+import { withACapital } from '../../_auxiliary';
+
 
 import './PokemonCard.scss';
 
-
-export const PokemonCard: React.FC<PokemonCardType> = ({
-  imageSource, name, types, id
+export const PokemonCard: React.FC<iPokemonCard> = ({
+  pokemon, onSelectPokemon, onSelectedPokemonId,
 }): ReactElement => {
   
-  
+  const {
+    name,
+    id, 
+    imageSource,
+    types
+  } = pokemon;
+
   return (
-    <article className="pokemon-card">
+    <article
+      className={classNames(`pokemon-card--${types[0].type.name}`, {
+        "pokemon-card": true,
+        "pokemon-card--selected": id === onSelectedPokemonId,
+      })}
+      onClick={() => onSelectPokemon(id)}
+    >
       <div className="pokemon-card__content">
         <img 
           className="pokemon-card__image"
@@ -20,20 +35,19 @@ export const PokemonCard: React.FC<PokemonCardType> = ({
           alt={name}
         />
         <p className="pokemon-card__name">
-          {name}
+          {withACapital(name)}
         </p>
 
         <div className="pokemon-card__types">
-          {types.map((type: iTypes) => (
+          {types.map((type: iType) => (
             <span
               key={type.type.name} 
               className={`pokemon-card__type pokemon-card__type--${type.type.name}`}
             >
-              {type.type.name}
+              {withACapital(type.type.name)}
             </span>
           ))}
         </div>
-
       </div>
     </article>
   ) 

@@ -1,8 +1,14 @@
-import { iTypes } from "./types"; 
+import { iType, selectPokemonType } from "./types"; 
 
 export interface PokemonCardType {
   imageSource: string, 
   name: string,
-  types: iTypes[],
+  types: iType[],
   id: number,
+}
+
+export interface iPokemonCard {
+  pokemon: PokemonCardType,
+  onSelectPokemon: selectPokemonType,
+  onSelectedPokemonId: number,
 }

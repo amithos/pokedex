@@ -1,11 +1,91 @@
-.selected-pokemon {
-  width: 40%;
-  border: solid purple 5px;
+@import '../../vars.scss';
 
-  &__card {
-   background-color: plum; 
+@keyframes slide {
+  0% {
+    transform: translate(100%);
+    opacity: 0;
   }
 
-
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
 }
 
+$fontSize: 18px;
+$cellHeight: $fontSize * 1.8;
+
+.selected-pokemon {
+  position: relative;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: $halfOfMargin;
+  }
+
+  &__loader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+  }
+
+  &__card {
+    position: sticky;
+    width: $cardWidth;
+    top: 10vh;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: $colorBlue solid 5px;
+
+    animation: slide;
+    animation-duration: $transitionDuration;
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__name {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: $cardContentMargin;
+  }
+
+  &__table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  &__row {
+    width: 100%;
+    transition: $transitionDuration;
+
+    &:hover {
+      background-color: $colorPokedexSecond;
+      color: white;
+      transform: scale(1.2);
+    }
+  }
+
+  &__datum,
+  &__value {
+    border: black solid 1px;
+    text-align: center;
+    height: $cellHeight;
+  }
+}

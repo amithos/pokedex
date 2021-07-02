@@ -1,4 +1,4 @@
-import { iNameUrl, SpriteURL, iTypes, iStats } from './types';
+import { iNameUrl, SpriteURL, iType, iStat } from './types';
 
 interface iPokemonAbility {
   ability: iNameUrl,
@@ -165,7 +165,7 @@ interface iSprites extends
 
 interface iPastTypes {
   generation: iNameUrl,
-  types: iTypes[],
+  types: iType[],
 }
 
 export interface PokemonType {
@@ -184,7 +184,7 @@ export interface PokemonType {
   past_types: iPastTypes[],
   species: iNameUrl,
   sprites: iSprites,
-  stats: iStats[],
-  types: iTypes[],
+  stats: iStat[],
+  types: iType[],
   weight: number,
 }

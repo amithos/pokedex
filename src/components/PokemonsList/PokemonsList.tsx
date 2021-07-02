@@ -7,6 +7,7 @@ import { PokemonCardType } from '../../types/PokemonCardType';
 import { getPokemonById } from '../../api/pokemon';
 
 import { PokemonCard } from '../PokemonCard';
+import { Loader } from '../Loader';
 
 import './PokemonList.scss';
 
@@ -15,11 +16,24 @@ import './PokemonList.scss';
 export const PokemonList: React.FC<iPokemonList> = ({
   onSelectPokemon,
   onFilter,
+  onSelectedPokemonId,
+
 }): ReactElement => {
   
   const [pokemons, setPokemons] = useState<PokemonCardType[]>([]);
+  const [isLoading, setLoading] = useState<Boolean>(false);
+
+  const startLoading = () => {
+    setLoading(true);
+  }
+
+  const endLoading = () => {
+    setLoading(false);
+  }
   
   const loadPokemons = (): void => {
+
+    startLoading();
 
     const limit = 12;
     let offset = pokemons.length + 1;
@@ -47,7 +61,8 @@ export const PokemonList: React.FC<iPokemonList> = ({
         );
 
         return setPokemons([...pokemons, ...cards]);
-      });
+      })
+      .then(endLoading);
   }
            
   let visiblePokemons = [...pokemons];
@@ -57,9 +72,6 @@ export const PokemonList: React.FC<iPokemonList> = ({
   // }
 
   useEffect(loadPokemons, []);
-
-  console.log(visiblePokemons);
-  
   
   return (
     <section className="pokemon-list">
@@ -68,7 +80,11 @@ export const PokemonList: React.FC<iPokemonList> = ({
         <ul className="pokemon-list__cards">
           {visiblePokemons.map((pokemon: PokemonCardType) => (
             <li className="pokemon-list__item" key={pokemon.id}>
-              <PokemonCard {...pokemon}/>
+              <PokemonCard
+                pokemon={pokemon}
+                onSelectPokemon={onSelectPokemon}
+                onSelectedPokemonId={onSelectedPokemonId}
+              />
             </li>
           ))}
         </ul>  
@@ -77,12 +93,15 @@ export const PokemonList: React.FC<iPokemonList> = ({
           className="pokemon-list__button"
           onClick={loadPokemons}
         >
-          Load More
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <p className="pokemon-list__button-text">
+              Load More
+            </p>  
+          )}  
         </button>
           
-        {/* <button className="PokemonList__button">Show Less</button> 
-          Як варіант
-        */}
       </div>
     </section>
   );

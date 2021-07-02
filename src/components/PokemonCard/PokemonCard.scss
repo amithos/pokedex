@@ -1,49 +1,85 @@
-$typesColors:
-  'normal' rgb(77,77,77) rgb(125,120,120),
-  'flying' rgb(3,160,255) rgb(97,195,255),
-  'fighting' rgb(255,136,0) rgb(255,174,81),
-  'poison' rgb(197,3,255) rgb(221,106,255),
-  'ground' rgb(47,5,5) rgb(96,21,21),
-  'rock' rgb(119,119,119) rgb(159,159,159),
-  'bug' rgb(36,204,1) rgb(108,208,87),
-  'ghost' rgb(144,117,153) rgb(245,213,255),
-  'steel' rgb(74,93,103) rgb(95,117,131),
-  'fire' rgb(255,0,0) rgb(255,92,92),
-  'water' rgb(8,0,255) rgb(99,94,255),
-  'grass' rgb(1,136,2) rgb(68,170,68),
-  'electric' rgb(255,221,0) rgb(255, 239, 133),
-  'psychic' rgb(10,19,87) rgb(36,45,116),
-  'ice' rgb(0,219,221) rgb(137,252,255),
-  'dragon' rgb(131,0,0) rgb(179,64,64),
-  'dark' rgb(0,0,0) rgb(54,52,52),
-  'fairy' rgb(255,80,180) rgb(255,134,203),
-  'unknown' rgb(61,34,34) rgb(158,95,95),
-  'shadow' rgb(64,1,88) rgb(47,20,57);
+@import '../../vars.scss';
 
-$cardWidth: 300px;
-$cardVerticalMargin: 10px;
-$cardContentWidth: $cardWidth - ($cardVerticalMargin * 2);
+$typesColors:
+  'normal' rgb(77,77,77) rgb(125,120,120) rgb(172, 147, 147),
+  'flying' rgb(3,160,255) rgb(97,195,255) rgb(125, 203, 252),
+  'fighting' rgb(255,136,0) rgb(255,174,81) rgb(245, 180, 106),
+  'poison' rgb(197,3,255) rgb(221,106,255) rgb(230, 152, 253),
+  'ground' rgb(47,5,5) rgb(96,21,21) rgb(102, 43, 43),
+  'rock' rgb(119,119,119) rgb(159,159,159) rgb(209, 207, 207),
+  'bug' rgb(36,204,1) rgb(108,208,87) rgb(145, 241, 126),
+  'ghost' rgb(144,117,153) rgb(245,213,255) rgb(251, 240, 255),
+  'steel' rgb(74,93,103) rgb(95,117,131) rgb(159, 199, 224),
+  'fire' rgb(255,0,0) rgb(255,92,92) rgb(255, 145, 145),
+  'water' rgb(8,0,255) rgb(99,94,255) rgb(150, 146, 255),
+  'grass' rgb(1,136,2) rgb(68,170,68) rgb(128, 238, 128),
+  'electric' rgb(255,221,0) rgb(255, 239, 133) rgb(255, 245, 182),
+  'psychic' rgb(10,19,87) rgb(36,45,116) rgb(63, 74, 153),
+  'ice' rgb(0,219,221) rgb(137,252,255) rgb(195, 253, 255),
+  'dragon' rgb(131,0,0) rgb(179,64,64) rgb(243, 109, 109),
+  'dark' rgb(0,0,0) rgb(54,52,52) rgb(44, 44, 44),
+  'fairy' rgb(255,80,180) rgb(255,134,203) rgb(253, 170, 217),
+  'unknown' rgb(61,34,34) rgb(158,95,95) rgb(236, 132, 132),
+  'shadow' rgb(64,1,88) rgb(47,20,57) rgb(89, 39, 107);
+ 
+$transformValue: 5px;
+
+%hoverCard {
+  transform: translate(-$transformValue, -$transformValue);
+    box-shadow:
+      $transformValue $transformValue 5px 7px $colorPokedexSecond;
+}
 
 .pokemon-card {
+  width: $cardWidth;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid $colorBlue;
+  cursor: pointer;
+  transition: $transitionDuration;
 
-  width: 300px;
-  border: 5px solid rebeccapurple;
+  &--selected { 
+    @extend %hoverCard;
+    background-color: $colorBlue;
+  }
 
-  &__content {
-    width: $cardContentWidth;
+  @each $type, $mainColor, $lightColor, $hoverCardColor in $typesColors {
+    &--#{$type}:hover {
+      @extend %hoverCard;
+      background-color: $hoverCardColor;
+    }
+  }
+  
+  &__content {    
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: $halfOfMargin;
+    transition: $transitionDuration;
+
+    &:hover {
+      border-radius: 9px;
+    }
   }
 
   &__image {
-    width: 90%;
+    width: 100%;
+    margin-bottom: $cardContentMargin;
+  }
+
+  &__name {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
   }
 
   &__types {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    margin-bottom: $cardContentMargin * 2;
   }
 
   &__type {
@@ -52,7 +88,7 @@ $cardContentWidth: $cardWidth - ($cardVerticalMargin * 2);
     align-items: center;
     width: 48%;
     color: white;
-    border-radius: 24px;
+    border-radius: 6px;
     height: 30px;
     
     @each $type, $mainColor, $lightColor in $typesColors {
